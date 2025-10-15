@@ -1,0 +1,7 @@
+OpAmp:
+1) Wzmacniacz do pomiaru prądu: LTC6102: https://www.analog.com/media/en/technical-documentation/data-sheets/6102fe.pdf
+2) Albo wzmacniacz pomiarowy: AD620: https://www.analog.com/media/en/technical-documentation/data-sheets/AD620.pdf
+
+
+µP:
+1) STM32 G4: https://www.mouser.pl/ProductDetail/STMicroelectronics/STM32G431K6T6?qs=sPbYRqrBIVm9zNbIq2fwdA%3D%3D
