@@ -1,7 +1,25 @@
-OpAmp:
-1) Wzmacniacz do pomiaru prądu: LTC6102: https://www.analog.com/media/en/technical-documentation/data-sheets/6102fe.pdf
-2) Albo wzmacniacz pomiarowy: AD620: https://www.analog.com/media/en/technical-documentation/data-sheets/AD620.pdf
+Cel:
+    Precyzyjny układ pomiaru prądu z ditheringiem generowanym
+
+Parametry:
+Zasilanie: ~3.3V - LDO - możliwe zasilanie bateryjne
+Zakres prądowy: 10nA - 10µA
+Napięcie referencyjne: 2.048V 
+Rezystor pomiarowy: 100Ω
+
+
+OpAmp pomiarowy:
+1) Wzmacniacz do pomiaru prądu: INA186: https://www.mouser.pl/ProductDetail/Texas-Instruments/INA186A3IDCKR?qs=Zz7%252BYVVL6bH4Zw4rH2yWfA%3D%3D
+2) Wzmacniacz do pomiaru prądu: LTC6102: https://www.analog.com/media/en/technical-documentation/data-sheets/6102fe.pdf
+3) Albo wzmacniacz pomiarowy: AD620: https://www.analog.com/media/en/technical-documentation/data-sheets/AD620.pdf
 
 
 µP:
 1) STM32 G4: https://www.mouser.pl/ProductDetail/STMicroelectronics/STM32G431K6T6?qs=sPbYRqrBIVm9zNbIq2fwdA%3D%3D
+    ADC 12 bit with hardware Overslampling
+    PWM 32 bity albo DAC 12 bit - w zależności od rozdzielczości i szybkości przetwornika
+
+
+Źródło napięcia referencyjnego: 
+    Wybrać zewnętrzne
+
