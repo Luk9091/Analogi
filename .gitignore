@@ -1,5 +1,6 @@
 *cache*
 *backups*
+**backups
 
 *.aux
 *.aux
@@ -12,6 +13,7 @@
 *.tex
 *.toc
 **/.vscode
+**/*.zip
 
 *.db
 *.fft
