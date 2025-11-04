@@ -10,7 +10,6 @@
 *.out
 *.pdf
 *.synctex.gz
-*.tex
 *.toc
 **/.vscode
 **/*.zip

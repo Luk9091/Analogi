@@ -1,0 +1,94 @@
+\section{Cel projektu}
+    Precyzyjny układ pomiaru prądów z ditheringiem opartym o sygnał trójkątny.
+
+    Parametry:
+    \begin{enumerate}
+        \item Zasilanie: $3.3V$,
+        \item Zakres mierzonego prądu: $5nA \div 20\mu A$ *($-10\mu A$ możliwe),
+        \item Zakres mierzonej częstotliwości: $0 \div 100Hz$,
+        \item Napięcie referencyjne przetwornika ADC, DAC: $2.048V$,
+        \item Rezystancja rezystora pomiarowego: $100 \Omega$,
+    \end{enumerate}
+
+\section{Układ pomiarowy}
+    \subsection{Schemat blokowy}
+        \begin{figure}[!ht]
+            \centering
+            \begin{circuitikz}
+                \draw
+                    (0, 0) node[plain amp, scale=1.2](cm){}
+                    (cm) node{INA186}
+                    (-2, 1) to[R, a2=$100\Omega$ and $5nA  \div 100\mu A$] ++(0, -2)
+                    (-2,  0.7) -| (cm.-)
+                    (-2, -0.7) -| (cm.+)
+                    (-2,  0.7) to[short, *-] ++ (0, 0)
+                    (-2, -0.7) to[short, *-] ++ (0, 0)
+
+                    (5, -1) node[op amp, scale=1.2](sum){}
+                    (sum) node[]{OPA350}
+                    (cm.out) -| (sum.-)
+
+                    (10, -3) node[draw, minimum width = 4cm, minimum height =6cm](cpu){STM32G4}
+                    (sum.out) -- (8, -1)
+                    
+                    (6, -2.5) node[lowpassshape](lpf){}
+                    (lpf.east) -- (8, -2.5)
+                    (lpf.west) -| (sum.+)
+
+                    (8, -4) to[short, a=offset] ++ (-4, 0) -| (sum.+)
+                ;
+            \end{circuitikz}
+            \caption{Schemat blokowy}
+        \end{figure}
+
+    \newpage
+    \subsection{Stopień wejściowy}
+        \begin{figure}[!ht]
+            \centering
+            \includegraphics[width=\textwidth]{current_meas.png}
+            \caption{Schemat stopnia pomiarowego}
+        \end{figure}
+        % *) możliwe, że wzmacniacz pomiarowy będzie w obudowie z wyprowadzonym $ref$, a napięcie wyjściowe zostanie delikatnie podniesione przez DAC wbudowany w CPU.
+        Składowa stała napięcia w układzie powinna znajdować w okolicy: $102.4mV$.
+        % Dzięki czemu po wzmocnieniu 10 krotnym, napiecie wyjściowe będzie oscylować w okolicy połowy napiecia referencyjnego.
+
+        \begin{gather*}
+            G = 100\\
+            f_{in} = \frac{1}{4\pi\cdot R_3 \cdot C_1} \approx 3.6kHz\\
+            U_{current_{measure}} = G \cdot I \cdot R2 + (V_{ref})\\
+        \end{gather*}
+        \begin{align*}
+            U_{current_{measure}} = 50\mu V| 5nA&&
+            U_{current_{measure}} = 0.2mV | 20\mu A
+        \end{align*}
+
+    \newpage
+    \subsection{Stopień sumacyjny}
+        \begin{figure}[!ht]
+            \centering
+            \includegraphics[width=\textwidth]{sumator.png}
+            \caption{Schemat układu sumującego}
+        \end{figure}
+
+        \begin{figure}[!ht]
+            \centering
+            \includegraphics[width=0.7\textwidth]{lowpass.png}
+            \caption{Schemat układu różnicującego}
+        \end{figure}
+
+        \begin{enumerate}
+            \item Częstotliwość sygnału trójkątnego do $2kHz$ - ograniczenie wzmacniacza $OPA350$,
+        \end{enumerate}
+
+    \newpage
+    \subsection{Wyniki symulacji}
+        \begin{figure}[!ht]
+            \centering
+            \includegraphics[width=\textwidth]{step_current.png}
+            \includegraphics[width=\textwidth]{current_anv.png}
+            \caption{Wyniki symulacji układu z przemiataniem prądowym z krokiem $5nA$ w zakresie $10nA \div 95nA$}
+        \end{figure}
+
+
+\section{Komunikacja}
+    Komunikacja z użytkownikom może odbywać się poprzez USART z izolacją optyczną, aby nie prowadzać zakłóceń z USB.
