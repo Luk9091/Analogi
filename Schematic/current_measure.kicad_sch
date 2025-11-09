@@ -6360,13 +6360,14 @@
 		)
 		(uuid "c5217903-736c-4878-abc9-4aea23d915e7")
 	)
-	(text "Układ dodający ditherring\nUstawienie offsetu na około 1.024\n(V_{ref} / 2)"
+	(text "Układ dodający ditherring\nUstawienie offsetu na około 1.024 (V_{ref} / 2)"
 		(exclude_from_sim no)
-		(at 32.258 98.298 0)
+		(at 16.256 96.774 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
+			(justify left)
 		)
 		(uuid "e842c3bd-fe85-437c-83b2-fefd05cf32ce")
 	)
